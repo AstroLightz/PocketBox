@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#2A2A2A</color>
+    <!-- Primary -->
+    <color name="magneta_50">#A569FF</color>
+    <color name="magenta_100">#6943A2</color>
+    
+    <!-- Secondary -->
+    <color name="orange_50">#FFA569</color>
+    <color name="orange_100">#A26943</color>
+
+    <!-- Misc -->
+
+</resources>

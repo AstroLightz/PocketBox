@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/nav_home"
+        android:title="Home" />
+
+    <group android:id="@+id/main_pages" android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_calcTotal"
+            android:title="Calculate Total" />
+
+        <item android:id="@+id/nav_calcTip"
+            android:title="Calculate Tip" />
+
+    </group>
+
+    <group android:id="@+id/pref_pages" android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_settings"
+            android:title="Settings" />
+
+    </group>
+
+</menu>

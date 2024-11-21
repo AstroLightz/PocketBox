@@ -8,7 +8,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.astrolightz.pocketbox.ui.calcDate.CalculateDate;
+import com.astrolightz.pocketbox.ui.calcPercent.CalculatePercent;
+import com.astrolightz.pocketbox.ui.calcTip.CalculateTip;
+import com.astrolightz.pocketbox.ui.calcTotal.CalculateTotal;
+import com.astrolightz.pocketbox.ui.convTemp.ConvertTemperature;
+import com.astrolightz.pocketbox.ui.home.Home;
+import com.astrolightz.pocketbox.ui.numName.NumberName;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity
@@ -55,18 +65,45 @@ public class MainActivity extends AppCompatActivity
             if (id == R.id.nav_home)
             {
                 // Load home
+                tb_j_toolbar.setTitle("PocketBox");
+                loadFragment(new Home());
             }
             else if (id == R.id.nav_calcTotal)
             {
                 // Load Calc Total
+                tb_j_toolbar.setTitle("Calculate Total");
+                loadFragment(new CalculateTotal());
             }
             else if (id == R.id.nav_calcTip)
             {
                 // Load Calc Tip
+                tb_j_toolbar.setTitle("Calculate Tip");
+                loadFragment(new CalculateTip());
             }
-
-            // TODO: Make fragments, and load them here
-
+            else if (id == R.id.nav_convTemp)
+            {
+                // Load Temp Converter
+                tb_j_toolbar.setTitle("Convert Temperature");
+                loadFragment(new ConvertTemperature());
+            }
+            else if (id == R.id.nav_numFormat)
+            {
+                // Load Number Format
+                tb_j_toolbar.setTitle("Number Formatter");
+                loadFragment(new NumberName());
+            }
+            else if (id == R.id.nav_daysApart)
+            {
+                // Load Days Apart
+                tb_j_toolbar.setTitle("Days Apart");
+                loadFragment(new CalculateDate());
+            }
+            else if (id == R.id.nav_percChange)
+            {
+                // Load Percentage Change
+                tb_j_toolbar.setTitle("Percentage Change");
+                loadFragment(new CalculatePercent());
+            }
             else if (id == R.id.nav_settings)
             {
                 // Load settings
@@ -82,8 +119,20 @@ public class MainActivity extends AppCompatActivity
 
         // Setup app version in Nav view
         tv_j_appVersion = findViewById(R.id.tv_v_appVersion);
-        //tv_j_appVersion.setText("v" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
-        tv_j_appVersion.setText("Test");
+        tv_j_appVersion.setText("v" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+
+        // Load home fragment by default
+        loadFragment(new Home());
 
     }
+
+    // Load a fragment
+    private void loadFragment(Fragment f)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fl_v_fragentDisplay, f);
+        ft.commit();
+    }
+
 }

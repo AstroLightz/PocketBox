@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import java.text.SimpleDateFormat
 import java.util.Date
 
 plugins {
@@ -11,17 +12,17 @@ android {
 
     defaultConfig {
         applicationId = "com.astrolightz.pocketbox"
-        minSdk = 26
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Get versioning info
-        //buildConfigField("int", "VERSION_CODE", "$versionCode")
-        //buildConfigField("String", "VERSION_NAME", "\"$versionName\"")
-        //buildConfigField("String", "BUILD_DATE", "\"${new Date().format('yyyy-MM-dd')}\"")
+        buildConfigField("int", "VERSION_CODE", "$versionCode")
+        buildConfigField("String", "VERSION_NAME", "\"$versionName\"")
+        buildConfigField("String", "BUILD_DATE", "\"${SimpleDateFormat("yyyy-MM-dd").format(Date())}\"")
     }
 
     buildTypes {
@@ -70,6 +71,11 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Material You Stuff -->
+    <style name="Widget.App.NavigationView" parent="">
+        <item name="android:listDivider">@color/md_theme_surfaceVariant</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:background">@color/md_theme_inverseOnSurface</item>
+        <item name="colorOnSurface">@color/text</item>
+        <item name="dialogCornerRadius">28dp</item>
+    </style>
+
     <style name="Toolbar">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/manrope</item>
     </style>
 </resources>

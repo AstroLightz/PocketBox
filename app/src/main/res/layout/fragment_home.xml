@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.Home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Home"
-        android:textSize="64sp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_v_hf_toolList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

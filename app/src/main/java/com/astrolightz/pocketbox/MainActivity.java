@@ -1,5 +1,6 @@
 package com.astrolightz.pocketbox;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -19,7 +20,10 @@ import com.astrolightz.pocketbox.ui.calcTotal.CalculateTotal;
 import com.astrolightz.pocketbox.ui.convTemp.ConvertTemperature;
 import com.astrolightz.pocketbox.ui.home.Home;
 import com.astrolightz.pocketbox.ui.numName.NumberName;
+import com.astrolightz.pocketbox.ui.settings.Settings;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -66,50 +70,50 @@ public class MainActivity extends AppCompatActivity
             {
                 // Load home
                 tb_j_toolbar.setTitle("PocketBox");
-                loadFragment(new Home());
+                loadFragment(this, new Home());
             }
             else if (id == R.id.nav_calcTotal)
             {
                 // Load Calc Total
                 tb_j_toolbar.setTitle("Calculate Total");
-                loadFragment(new CalculateTotal());
+                loadFragment(this, new CalculateTotal());
             }
             else if (id == R.id.nav_calcTip)
             {
                 // Load Calc Tip
                 tb_j_toolbar.setTitle("Calculate Tip");
-                loadFragment(new CalculateTip());
+                loadFragment(this, new CalculateTip());
             }
             else if (id == R.id.nav_convTemp)
             {
                 // Load Temp Converter
                 tb_j_toolbar.setTitle("Convert Temperature");
-                loadFragment(new ConvertTemperature());
+                loadFragment(this, new ConvertTemperature());
             }
             else if (id == R.id.nav_numFormat)
             {
                 // Load Number Format
                 tb_j_toolbar.setTitle("Number Formatter");
-                loadFragment(new NumberName());
+                loadFragment(this, new NumberName());
             }
             else if (id == R.id.nav_daysApart)
             {
                 // Load Days Apart
                 tb_j_toolbar.setTitle("Days Apart");
-                loadFragment(new CalculateDate());
+                loadFragment(this, new CalculateDate());
             }
             else if (id == R.id.nav_percChange)
             {
                 // Load Percentage Change
                 tb_j_toolbar.setTitle("Percentage Change");
-                loadFragment(new CalculatePercent());
+                loadFragment(this, new CalculatePercent());
             }
             else if (id == R.id.nav_settings)
             {
                 // Load settings
+                tb_j_toolbar.setTitle("Settings");
+                loadFragment(this, new Settings());
             }
-
-            // TODO: Load fragments
 
             // Close drawer
             dl_j_drawer.closeDrawer(GravityCompat.START);
@@ -122,17 +126,23 @@ public class MainActivity extends AppCompatActivity
         tv_j_appVersion.setText("v" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
 
         // Load home fragment by default
-        loadFragment(new Home());
+        loadFragment(this, new Home());
 
     }
 
     // Load a fragment
-    private void loadFragment(Fragment f)
+    public static void loadFragment(Context context, Fragment f)
     {
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fl_v_fragentDisplay, f);
         ft.commit();
+    }
+
+    // Set toolbar title
+    public static void setToolBarTitle(Context context, String title)
+    {
+        Objects.requireNonNull(((AppCompatActivity) context).getSupportActionBar()).setTitle(title);
     }
 
 }

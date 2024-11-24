@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.astrolightz.pocketbox.ui.home.Home"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_calcTotal"
+            app:destination="@id/nav_calcTotal" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_daysApart"
+            app:destination="@id/nav_daysApart" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_calcTip"
+            app:destination="@id/nav_calcTip" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_convTemp"
+            app:destination="@id/nav_convTemp" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_numFormat"
+            app:destination="@id/nav_numFormat" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_percChange"
+            app:destination="@id/nav_percChange" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_settings"
+            app:destination="@id/nav_settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_calcTotal"
+        android:name="com.astrolightz.pocketbox.ui.calcTotal.CalculateTotal"
+        android:label="@string/title_calcTotal"
+        tools:layout="@layout/fragment_calculate_total" >
+        <action
+            android:id="@+id/action_nav_calcTotal_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_daysApart"
+        android:name="com.astrolightz.pocketbox.ui.calcDate.CalculateDate"
+        android:label="@string/title_daysApart"
+        tools:layout="@layout/fragment_calculate_date" >
+        <action
+            android:id="@+id/action_nav_daysApart_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_calcTip"
+        android:name="com.astrolightz.pocketbox.ui.calcTip.CalculateTip"
+        android:label="@string/title_calcTip"
+        tools:layout="@layout/fragment_calculate_tip" >
+        <action
+            android:id="@+id/action_nav_calcTip_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_convTemp"
+        android:name="com.astrolightz.pocketbox.ui.convTemp.ConvertTemperature"
+        android:label="@string/title_convTemp"
+        tools:layout="@layout/fragment_convert_temperature" >
+        <action
+            android:id="@+id/action_nav_convTemp_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_numFormat"
+        android:name="com.astrolightz.pocketbox.ui.numName.NumberName"
+        android:label="@string/title_numFormat"
+        tools:layout="@layout/fragment_number_name" >
+        <action
+            android:id="@+id/action_nav_numFormat_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_percChange"
+        android:name="com.astrolightz.pocketbox.ui.calcPercent.CalculatePercent"
+        android:label="@string/title_percChange"
+        tools:layout="@layout/fragment_calculate_percent" >
+        <action
+            android:id="@+id/action_nav_percChange_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.astrolightz.pocketbox.ui.settings.Settings"
+        android:label="@string/title_settings" >
+        <action
+            android:id="@+id/action_nav_settings_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+</navigation>

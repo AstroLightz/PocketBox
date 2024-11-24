@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_v_rvc_tool"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="Button"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textAppearance="@android:style/TextAppearance.Material.Widget.Button"
+        app:icon="@drawable/baseline_home_24"
+        app:iconGravity="start"
+        app:iconSize="26dp"
+        android:textAppearance="@style/Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

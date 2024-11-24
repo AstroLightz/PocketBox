@@ -4,4 +4,15 @@
     <!-- Drawer -->
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+
+    <!-- Toolbar titles for each page -->
+    <string name="title_home">PocketBox</string>
+    <string name="title_calcTotal">Calculate Total</string>
+    <string name="title_calcTip">Calculate Tip</string>
+    <string name="title_convTemp">Temperature Converter</string>
+    <string name="title_numFormat">Number Formatter</string>
+    <string name="title_daysApart">Days Apart</string>
+    <string name="title_percChange">Percent Calculator</string>
+    <string name="title_settings">Settings</string>
+
 </resources>

@@ -8,6 +8,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 
 public class ToolListAdapter extends  RecyclerView.Adapter<ToolListAdapter.ToolViewHolder>
@@ -39,6 +41,7 @@ public class ToolListAdapter extends  RecyclerView.Adapter<ToolListAdapter.ToolV
     public void onBindViewHolder(@NonNull ToolViewHolder holder, int position) {
         ToolButton tool = toolList.get(position);
         holder.btn_j_rvc_tool.setText(tool.getTitle());
+        holder.btn_j_rvc_tool.setIcon(tool.getIcon());
         holder.btn_j_rvc_tool.setOnClickListener(v -> listener.onItemClick(position));
     }
 
@@ -49,7 +52,7 @@ public class ToolListAdapter extends  RecyclerView.Adapter<ToolListAdapter.ToolV
 
     public static class ToolViewHolder extends RecyclerView.ViewHolder
     {
-        Button btn_j_rvc_tool;
+        MaterialButton btn_j_rvc_tool;
 
         public ToolViewHolder(@NonNull View itemView) {
             super(itemView);

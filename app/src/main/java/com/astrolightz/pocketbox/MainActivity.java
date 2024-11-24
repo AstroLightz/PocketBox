@@ -1,5 +1,7 @@
 package com.astrolightz.pocketbox;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -12,6 +14,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.astrolightz.pocketbox.ui.calcDate.CalculateDate;
 import com.astrolightz.pocketbox.ui.calcPercent.CalculatePercent;
@@ -36,9 +42,9 @@ public class MainActivity extends AppCompatActivity
     ActionBarDrawerToggle dt_j_toggle;
     NavigationView nv_j_navView;
     TextView tv_j_appVersion;
+    AppBarConfiguration ab_j_config;
+    NavController navController;
 
-
-    // Fragment Vars
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,84 +65,28 @@ public class MainActivity extends AppCompatActivity
         dl_j_drawer.addDrawerListener(dt_j_toggle);
         dt_j_toggle.syncState();
 
-        // Setup Navigation View
+        // TODO: Fix the following bug:
+        // Pressing tool in NavigationView, then pressing home goes to home fragment.
+        // Pressing tool button in home fragment, then pressing home in the NavigationView
+        // Does not go home.
+        // Pressing a different tool in the NavigationView, then pressing home goes back
+        // to the tool fragment button pressed instead of home.
+
+        // Setup Navigation
         nv_j_navView = findViewById(R.id.nv_v_navView);
-        nv_j_navView.setNavigationItemSelectedListener(item -> {
-
-            int id = item.getItemId();
-
-            // Get which fragment to load
-            if (id == R.id.nav_home)
-            {
-                // Load home
-                tb_j_toolbar.setTitle("PocketBox");
-                loadFragment(this, new Home());
-            }
-            else if (id == R.id.nav_calcTotal)
-            {
-                // Load Calc Total
-                tb_j_toolbar.setTitle("Calculate Total");
-                loadFragment(this, new CalculateTotal());
-            }
-            else if (id == R.id.nav_calcTip)
-            {
-                // Load Calc Tip
-                tb_j_toolbar.setTitle("Calculate Tip");
-                loadFragment(this, new CalculateTip());
-            }
-            else if (id == R.id.nav_convTemp)
-            {
-                // Load Temp Converter
-                tb_j_toolbar.setTitle("Convert Temperature");
-                loadFragment(this, new ConvertTemperature());
-            }
-            else if (id == R.id.nav_numFormat)
-            {
-                // Load Number Format
-                tb_j_toolbar.setTitle("Number Formatter");
-                loadFragment(this, new NumberName());
-            }
-            else if (id == R.id.nav_daysApart)
-            {
-                // Load Days Apart
-                tb_j_toolbar.setTitle("Days Apart");
-                loadFragment(this, new CalculateDate());
-            }
-            else if (id == R.id.nav_percChange)
-            {
-                // Load Percentage Change
-                tb_j_toolbar.setTitle("Percentage Change");
-                loadFragment(this, new CalculatePercent());
-            }
-            else if (id == R.id.nav_settings)
-            {
-                // Load settings
-                tb_j_toolbar.setTitle("Settings");
-                loadFragment(this, new Settings());
-            }
-
-            // Close drawer
-            dl_j_drawer.closeDrawer(GravityCompat.START);
-            return true;
-
-        });
+        ab_j_config = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_calcTotal, R.id.nav_calcTip, R.id.nav_convTemp,
+                R.id.nav_numFormat, R.id.nav_daysApart, R.id.nav_percChange, R.id.nav_settings)
+                .setOpenableLayout(dl_j_drawer)
+                .build();
+        navController = findNavController(this, R.id.nc_v_navHostFragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, ab_j_config);
+        NavigationUI.setupWithNavController(nv_j_navView, navController);
 
         // Setup app version in Nav view
         tv_j_appVersion = findViewById(R.id.tv_v_appVersion);
         tv_j_appVersion.setText("v" + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
 
-        // Load home fragment by default
-        loadFragment(this, new Home());
-
-    }
-
-    // Load a fragment
-    public static void loadFragment(Context context, Fragment f)
-    {
-        FragmentManager fm = ((AppCompatActivity) context).getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fl_v_fragentDisplay, f);
-        ft.commit();
     }
 
     // Set toolbar title
@@ -145,4 +95,10 @@ public class MainActivity extends AppCompatActivity
         Objects.requireNonNull(((AppCompatActivity) context).getSupportActionBar()).setTitle(title);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nc_v_navHostFragment);
+        return NavigationUI.navigateUp(navController, ab_j_config)
+                || super.onSupportNavigateUp();
+    }
 }

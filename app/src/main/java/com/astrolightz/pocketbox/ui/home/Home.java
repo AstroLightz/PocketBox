@@ -1,5 +1,8 @@
 package com.astrolightz.pocketbox.ui.home;
 
+import static androidx.navigation.fragment.FragmentKt.findNavController;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -39,6 +42,7 @@ public class Home extends Fragment {
     }
 
     // Tools List
+    RecyclerView rv_j_hf_toolList;
     private List<ToolButton> toolList = new ArrayList<ToolButton>();
     private ToolListAdapter adapter;
 
@@ -48,58 +52,19 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Setup RecyclerView
-        RecyclerView rv_j_hf_toolList = view.findViewById(R.id.rv_v_hf_toolList);
+        rv_j_hf_toolList = view.findViewById(R.id.rv_v_hf_toolList);
         rv_j_hf_toolList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-
-        // Add Tools
-        toolList.add(new ToolButton("Calculate Total"));
-        toolList.add(new ToolButton("Calculate Tip"));
-        toolList.add(new ToolButton("Temperature Converter"));
-        toolList.add(new ToolButton("Number Formatter"));
-        toolList.add(new ToolButton("Days Apart"));
-        toolList.add(new ToolButton("Percentage Calculator"));
-
-        // Setup Adapter
-        adapter = new ToolListAdapter(toolList, position -> {
-            // Handle Click
-            switch (position)
-            {
-                case 0:
-                    // Calculate Total
-                    MainActivity.setToolBarTitle(getContext(), "Calculate Total");
-                    MainActivity.loadFragment(getContext(), new CalculateTotal());
-                    break;
-                case 1:
-                    // Calculate Tip
-                    MainActivity.setToolBarTitle(getContext(), "Calculate Tip");
-                    MainActivity.loadFragment(getContext(), new CalculateTip());
-                    break;
-                case 2:
-                    // Temperature Converter
-                    MainActivity.setToolBarTitle(getContext(), "Temperature Converter");
-                    MainActivity.loadFragment(getContext(), new ConvertTemperature());
-                    break;
-                case 3:
-                    // Number Formatter
-                    MainActivity.setToolBarTitle(getContext(), "Number Formatter");
-                    MainActivity.loadFragment(getContext(), new NumberName());
-                    break;
-                case 4:
-                    // Days Apart
-                    MainActivity.setToolBarTitle(getContext(), "Days Apart");
-                    MainActivity.loadFragment(getContext(), new CalculateDate());
-                    break;
-                case 5:
-                    // Percentage Calculator
-                    MainActivity.setToolBarTitle(getContext(), "Percentage Calculator");
-                    MainActivity.loadFragment(getContext(), new CalculatePercent());
-                    break;
-            }
-        });
-
-        rv_j_hf_toolList.setAdapter(adapter);
+        // Add Tools if list is empty
+        if (toolList.isEmpty())
+        {
+            toolList.add(new ToolButton("Calculate Total", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_credit_card_24, null)));
+            toolList.add(new ToolButton("Calculate Tip", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_attach_money_24, null)));
+            toolList.add(new ToolButton("Temperature Converter", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_device_thermostat_24, null)));
+            toolList.add(new ToolButton("Number Formatter", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_numbers_24, null)));
+            toolList.add(new ToolButton("Days Apart", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_calendar_month_24, null)));
+            toolList.add(new ToolButton("Percentage Calculator", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_percent_24, null)));
+        }
 
         return view;
     }
@@ -111,6 +76,40 @@ public class Home extends Fragment {
         // Setup ViewModel
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
+        // Setup Adapter
+        adapter = new ToolListAdapter(toolList, position -> {
+            // Handle Click
+            switch (position)
+            {
+                case 0:
+                    // Calculate Total
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_calcTotal);
+                    break;
+                case 1:
+                    // Calculate Tip
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_calcTip);
+                    break;
+                case 2:
+                    // Temperature Converter
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_convTemp);
+                    break;
+                case 3:
+                    // Number Formatter
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_numFormat);
+                    break;
+                case 4:
+                    // Days Apart
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_daysApart);
+                    break;
+                case 5:
+                    // Percentage Calculator
+                    findNavController(this).navigate(R.id.action_nav_home_to_nav_percChange);
+                    break;
+            }
+        });
+
+        // Set Adapter
+        rv_j_hf_toolList.setAdapter(adapter);
 
     }
 

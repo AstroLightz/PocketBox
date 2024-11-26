@@ -19,13 +19,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_v_hf_toolList"
+    <ScrollView
+        android:id="@+id/sv_v_hf_toolsList"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        android:requiresFadingEdge="vertical"
+        android:fadingEdgeLength="15dp"
         app:layout_constraintTop_toBottomOf="@id/tv_v_homeMessage"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Tool Buttons -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_calcTotal"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_calcTotal"
+                app:icon="@drawable/baseline_credit_card_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_calcTip"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_calcTip"
+                app:icon="@drawable/baseline_attach_money_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_convTemp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_convTemp"
+                app:icon="@drawable/baseline_device_thermostat_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_numFormat"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_numFormat"
+                app:icon="@drawable/baseline_numbers_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_daysApart"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_daysApart"
+                app:icon="@drawable/baseline_calendar_month_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_v_hf_percChange"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/title_percChange"
+                app:icon="@drawable/baseline_percent_24"
+                app:iconGravity="start"
+                app:iconSize="26dp"
+                android:textAppearance="@style/Button" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

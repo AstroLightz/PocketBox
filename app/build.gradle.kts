@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.astrolightz.pocketbox"
-        minSdk = 31
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "0.1.0"
@@ -77,7 +77,5 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.preference)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.core.splashscreen)
 }

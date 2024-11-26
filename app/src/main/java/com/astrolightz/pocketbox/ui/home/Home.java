@@ -2,7 +2,6 @@ package com.astrolightz.pocketbox.ui.home;
 
 import static androidx.navigation.fragment.FragmentKt.findNavController;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -10,61 +9,49 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.NavController;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.astrolightz.pocketbox.MainActivity;
 import com.astrolightz.pocketbox.R;
-import com.astrolightz.pocketbox.ToolButton;
-import com.astrolightz.pocketbox.ToolListAdapter;
-import com.astrolightz.pocketbox.ui.calcDate.CalculateDate;
-import com.astrolightz.pocketbox.ui.calcPercent.CalculatePercent;
-import com.astrolightz.pocketbox.ui.calcTip.CalculateTip;
-import com.astrolightz.pocketbox.ui.calcTotal.CalculateTotal;
-import com.astrolightz.pocketbox.ui.convTemp.ConvertTemperature;
-import com.astrolightz.pocketbox.ui.numName.NumberName;
+import com.google.android.material.button.MaterialButton;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Home extends Fragment {
+public class Home extends Fragment
+{
+    // Vars
+    // Tool Buttons
+    MaterialButton btn_j_hf_calcTotal;
+    MaterialButton btn_j_hf_calcTip;
+    MaterialButton btn_j_hf_convTemp;
+    MaterialButton btn_j_hf_numFormat;
+    MaterialButton btn_j_hf_daysApart;
+    MaterialButton btn_j_hf_percChange;
 
     private HomeViewModel mViewModel;
+
+    private NavController nvController;
 
     public static Home newInstance() {
         return new Home();
     }
-
-    // Tools List
-    RecyclerView rv_j_hf_toolList;
-    private List<ToolButton> toolList = new ArrayList<ToolButton>();
-    private ToolListAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Setup RecyclerView
-        rv_j_hf_toolList = view.findViewById(R.id.rv_v_hf_toolList);
-        rv_j_hf_toolList.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Get NavController
+        nvController = findNavController(this);
 
-        // Add Tools if list is empty
-        if (toolList.isEmpty())
-        {
-            toolList.add(new ToolButton("Calculate Total", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_credit_card_24, null)));
-            toolList.add(new ToolButton("Calculate Tip", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_attach_money_24, null)));
-            toolList.add(new ToolButton("Temperature Converter", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_device_thermostat_24, null)));
-            toolList.add(new ToolButton("Number Formatter", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_numbers_24, null)));
-            toolList.add(new ToolButton("Days Apart", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_calendar_month_24, null)));
-            toolList.add(new ToolButton("Percentage Calculator", ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_percent_24, null)));
-        }
+        // Connect Vars
+        btn_j_hf_calcTotal = view.findViewById(R.id.btn_v_hf_calcTotal);
+        btn_j_hf_calcTip = view.findViewById(R.id.btn_v_hf_calcTip);
+        btn_j_hf_convTemp = view.findViewById(R.id.btn_v_hf_convTemp);
+        btn_j_hf_numFormat = view.findViewById(R.id.btn_v_hf_numFormat);
+        btn_j_hf_daysApart = view.findViewById(R.id.btn_v_hf_daysApart);
+        btn_j_hf_percChange = view.findViewById(R.id.btn_v_hf_percChange);
 
         return view;
     }
@@ -76,40 +63,13 @@ public class Home extends Fragment {
         // Setup ViewModel
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        // Setup Adapter
-        adapter = new ToolListAdapter(toolList, position -> {
-            // Handle Click
-            switch (position)
-            {
-                case 0:
-                    // Calculate Total
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_calcTotal);
-                    break;
-                case 1:
-                    // Calculate Tip
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_calcTip);
-                    break;
-                case 2:
-                    // Temperature Converter
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_convTemp);
-                    break;
-                case 3:
-                    // Number Formatter
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_numFormat);
-                    break;
-                case 4:
-                    // Days Apart
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_daysApart);
-                    break;
-                case 5:
-                    // Percentage Calculator
-                    findNavController(this).navigate(R.id.action_nav_home_to_nav_percChange);
-                    break;
-            }
-        });
-
-        // Set Adapter
-        rv_j_hf_toolList.setAdapter(adapter);
+        // Setup Tool Buttons
+        calcTotalButton();
+        calcTipButton();
+        convTempButton();
+        numFormatButton();
+        daysApartButton();
+        percChangeButton();
 
     }
 
@@ -117,4 +77,69 @@ public class Home extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+    // =============================================================================================
+    //                                  TOOL BUTTON LISTENERS
+    // =============================================================================================
+
+    // Calc Total
+    private void calcTotalButton()
+    {
+        btn_j_hf_calcTotal.setOnClickListener(v -> {
+
+            // Navigate to Calc Total
+            nvController.navigate(R.id.action_nav_home_to_nav_calcTotal);
+        });
+    }
+
+    // Calc Tip
+    private void calcTipButton()
+    {
+        btn_j_hf_calcTip.setOnClickListener(v -> {
+
+            // Navigate to Calc Tip
+            nvController.navigate(R.id.action_nav_home_to_nav_calcTip);
+        });
+    }
+
+    // Conv Temp
+    private void convTempButton()
+    {
+        btn_j_hf_convTemp.setOnClickListener(v -> {
+
+            // Navigate to Conv Temp
+            nvController.navigate(R.id.action_nav_home_to_nav_convTemp);
+        });
+    }
+
+    // Num Format
+    private void numFormatButton()
+    {
+        btn_j_hf_numFormat.setOnClickListener(v -> {
+
+            // Navigate to Num Format
+            nvController.navigate(R.id.action_nav_home_to_nav_numFormat);
+        });
+    }
+
+    // Days Apart
+    private void daysApartButton()
+    {
+        btn_j_hf_daysApart.setOnClickListener(v -> {
+
+            // Navigate to Days Apart
+            nvController.navigate(R.id.action_nav_home_to_nav_daysApart);
+        });
+    }
+
+    // Perc Change
+    private void percChangeButton()
+    {
+        btn_j_hf_percChange.setOnClickListener(v -> {
+
+            // Navigate to Perc Change
+            nvController.navigate(R.id.action_nav_home_to_nav_percChange);
+        });
+    }
+
 }

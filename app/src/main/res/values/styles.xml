@@ -23,4 +23,21 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Tool Page Styles -->
+    <style name="TP_CalcAnswer">
+        <item name="android:textSize">40sp</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+    </style>
+
+    <style name="TP_Field">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/manrope</item>
+    </style>
+
+    <style name="TP_CalcButton">
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/manrope_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

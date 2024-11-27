@@ -25,6 +25,13 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="open_source"
+            android:value="true" />
+
+        <meta-data
+            android:name="open_source_license"
+            android:value="GNU GENERAL PUBLIC LICENSE Version 3" />
     </application>
 
 </manifest>

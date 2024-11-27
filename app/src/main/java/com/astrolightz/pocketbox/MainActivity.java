@@ -3,7 +3,6 @@ package com.astrolightz.pocketbox;
 import static androidx.navigation.Navigation.findNavController;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -11,25 +10,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.astrolightz.pocketbox.databinding.ActivityMainBinding;
-import com.astrolightz.pocketbox.ui.calcDate.CalculateDate;
-import com.astrolightz.pocketbox.ui.calcPercent.CalculatePercent;
-import com.astrolightz.pocketbox.ui.calcTip.CalculateTip;
-import com.astrolightz.pocketbox.ui.calcTotal.CalculateTotal;
-import com.astrolightz.pocketbox.ui.convTemp.ConvertTemperature;
-import com.astrolightz.pocketbox.ui.home.Home;
-import com.astrolightz.pocketbox.ui.numName.NumberName;
-import com.astrolightz.pocketbox.ui.settings.Settings;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;

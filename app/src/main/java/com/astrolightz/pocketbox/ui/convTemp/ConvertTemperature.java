@@ -1,17 +1,14 @@
 package com.astrolightz.pocketbox.ui.convTemp;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.astrolightz.pocketbox.R;
 import com.astrolightz.pocketbox.TempConversion;
@@ -44,8 +41,6 @@ public class ConvertTemperature extends Fragment
             "Type must be different"
     );
 
-    private ConvertTemperatureViewModel mViewModel;
-
     public static ConvertTemperature newInstance() {
         return new ConvertTemperature();
     }
@@ -64,6 +59,13 @@ public class ConvertTemperature extends Fragment
         bnt_j_convTemp_conv = view.findViewById(R.id.btn_v_convTemp_conv);
         tv_j_convTemp_temp = view.findViewById(R.id.tv_v_convTemp_temp);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         // Setup Spinners
         setupSpinners();
         tempFromSpinner();
@@ -72,22 +74,6 @@ public class ConvertTemperature extends Fragment
         // Setup Convert Button
         convertButton();
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(ConvertTemperatureViewModel.class);
-
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     private void convertButton()
@@ -125,13 +111,17 @@ public class ConvertTemperature extends Fragment
 
                 tv_j_convTemp_temp.setText(sResult);
             }
+            else if (sTemp.isEmpty())
+            {
+                Utilities.displayError(getView(), "Please fill in temperature.");
+            }
 
         });
     }
 
     // Checks
     /**
-     * Check if the value is empty or the selected item is the same as the other spinner
+     * Checks for a single temperature value. Ensures it's not empty and not the same as the other spinner
      * @param temp    The value to check
      * @param tempTo  The value of the To spinner
      * @param tempFrom The value of the From spinner
@@ -139,14 +129,14 @@ public class ConvertTemperature extends Fragment
      */
     private void tempCheckSingle(String temp, String tempTo, String tempFrom, TextInputLayout til)
     {
-        // Check if the value is empty
+        // Empty
         if (temp.isEmpty())
         {
             til.setErrorEnabled(true);
             til.setError(errorMsgs.get(0));
         }
 
-        // Check if the selected item is the same as the other spinner
+        // Same as the other spinner
         else if (tempTo.equals(tempFrom))
         {
             til.setErrorEnabled(true);
@@ -161,14 +151,14 @@ public class ConvertTemperature extends Fragment
     }
 
     /**
-     * Check if the values are empty or the selected item is the same as the other spinner
+     * Checks for both temperature values. Ensures they're not empty and not the same as each other
      * @param tempTo   The value of the To spinner
      * @param tempFrom The value of the From spinner
      * @return         True if the values are valid
      */
     private boolean tempCheckFull(String tempTo, String tempFrom)
     {
-        // Check if the values are empty
+        // Empty
         if (tempTo.isEmpty() || tempFrom.isEmpty())
         {
             if (tempTo.isEmpty())
@@ -196,7 +186,7 @@ public class ConvertTemperature extends Fragment
             return false;
         }
 
-        // Check if the selected item is the same as the other spinner
+        // Both the same
         else if (tempTo.equals(tempFrom))
         {
             til_j_convTemp_tempToLayout.setErrorEnabled(true);
@@ -224,20 +214,20 @@ public class ConvertTemperature extends Fragment
             String tempTo = sp_j_convTemp_tempTo.getText().toString();
             String tempFrom = sp_j_convTemp_tempFrom.getText().toString();
 
-            // Check if the selected item is the same as the other spinner
+            // Perform Checks
             tempCheckSingle(tempFrom, tempTo, tempFrom, til_j_convTemp_tempFromLayout);
 
             // Set the ET icon based on selected temp
             switch (tempFrom)
             {
                 case "Fahrenheit":
-                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.temperature_fahrenheit, 0);
+                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_temp_fahrenheit, 0);
                     break;
                 case "Celsius":
-                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.temperature_celsius, 0);
+                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_temp_celsius, 0);
                     break;
                 case "Kelvin":
-                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.temperature_kelvin, 0);
+                    et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_temp_kelvin, 0);
                     break;
                 default:
                     et_j_convTemp_tempInput.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -254,7 +244,7 @@ public class ConvertTemperature extends Fragment
             String tempTo = sp_j_convTemp_tempTo.getText().toString();
             String tempFrom = sp_j_convTemp_tempFrom.getText().toString();
 
-            // Check if the selected item is the same as the other spinner
+            // Perform Checks
             tempCheckSingle(tempTo, tempTo, tempFrom, til_j_convTemp_tempToLayout);
 
         });
@@ -262,11 +252,11 @@ public class ConvertTemperature extends Fragment
 
     private void setupSpinners()
     {
-        // Setup From Spinner
+        // From Spinner
         adapterFrom = new ArrayAdapter<>(requireContext(), R.layout.dropdown_menu_popup_item, tempTypes);
         sp_j_convTemp_tempFrom.setAdapter(adapterFrom);
 
-        // Setup To Spinner
+        // To Spinner
         adapterTo = new ArrayAdapter<>(requireContext(), R.layout.dropdown_menu_popup_item, tempTypes);
         sp_j_convTemp_tempTo.setAdapter(adapterTo);
     }

@@ -1,17 +1,15 @@
 package com.astrolightz.pocketbox.ui.numName;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.astrolightz.pocketbox.MainActivity;
 import com.astrolightz.pocketbox.R;
 import com.astrolightz.pocketbox.Utilities;
 import com.google.android.material.button.MaterialButton;
@@ -27,8 +25,6 @@ public class NumberName extends Fragment
     MaterialTextView tv_j_numName_name;
     MaterialButton btn_j_numName_format;
 
-    private NumberNameViewModel mViewModel;
-
     public static NumberName newInstance() {
         return new NumberName();
     }
@@ -43,9 +39,6 @@ public class NumberName extends Fragment
         tv_j_numName_name = view.findViewById(R.id.tv_v_numName_name);
         btn_j_numName_format = view.findViewById(R.id.btn_v_numName_format);
 
-        // Setup Button
-        formatButton();
-
         return view;
     }
 
@@ -53,15 +46,9 @@ public class NumberName extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(NumberNameViewModel.class);
+        // Setup Button
+        formatButton();
 
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     private void formatButton()
@@ -73,14 +60,12 @@ public class NumberName extends Fragment
 
             if (!sNum.isEmpty() && !sNum.equals("."))
             {
-                et_j_numName_num.setError(null);
-
                 BigDecimal num = new BigDecimal(sNum);
 
                 // Get name
                 String name = Utilities.getNumberName(num);
 
-                if (!name.equals("nan"))
+                if (!name.equals(Utilities.LARGE_NUMBER_ERROR))
                 {
                     // Adjust font size based on length
                     Utilities.adjustFontSize(name, tv_j_numName_name);
@@ -91,14 +76,19 @@ public class NumberName extends Fragment
                 else
                 {
                     // Too big
-                    et_j_numName_num.setError("Number too big");
+                    Utilities.displayError(getView(), "Number is too large.");
                 }
 
             }
             else if (sNum.equals("."))
             {
                 // Prevent empty
-                et_j_numName_num.setError("Invalid Number");
+                Utilities.displayError(getView(), "Invalid number.");
+            }
+            else
+            {
+                // Empty
+                Utilities.displayError(getView(), "Please enter a number.");
             }
 
         });

@@ -29,8 +29,6 @@ public class Home extends Fragment
     MaterialButton btn_j_hf_daysApart;
     MaterialButton btn_j_hf_percChange;
 
-    private HomeViewModel mViewModel;
-
     private NavController nvController;
 
     public static Home newInstance() {
@@ -60,9 +58,6 @@ public class Home extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         // Setup Tool Buttons
         calcTotalButton();
         calcTipButton();
@@ -71,11 +66,6 @@ public class Home extends Fragment
         daysApartButton();
         percChangeButton();
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     // =============================================================================================

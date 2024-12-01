@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         tv_j_appVersion = findViewById(R.id.tv_v_appVersion);
         tv_j_appVersion.setText(this.getString(R.string.version_summary, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
-
+        // Listen for navigation changes
         navController.addOnDestinationChangedListener((controller, destination, arguments) ->
         {
             // Update Toolbar button based on what fragment is loaded

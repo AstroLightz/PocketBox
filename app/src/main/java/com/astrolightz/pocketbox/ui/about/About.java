@@ -1,19 +1,15 @@
 package com.astrolightz.pocketbox.ui.about;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.astrolightz.pocketbox.BuildConfig;
 import com.astrolightz.pocketbox.LicenseAdapter;
@@ -28,10 +24,9 @@ public class About extends Fragment
     MaterialTextView tv_j_about_appLicense;
     RecyclerView rv_j_about_partyLicenses;
 
+    // License Vars
     private LinearLayoutManager layoutManager;
     private LicenseAdapter adapter;
-
-    private AboutViewModel mViewModel;
 
     public static About newInstance() {
         return new About();
@@ -47,6 +42,13 @@ public class About extends Fragment
         tv_j_about_appLicense = view.findViewById(R.id.tv_v_about_appLicense);
         rv_j_about_partyLicenses = view.findViewById(R.id.rv_v_about_partyLicenses);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         // Setup version
         tv_j_about_version.setText(this.getString(R.string.version_summary, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE));
 
@@ -57,7 +59,7 @@ public class About extends Fragment
             Utilities.showFullLicense(getContext(), -1);
         });
 
-        // Setup layout to not scroll
+        // Setup layout manager to not scroll
         layoutManager = new LinearLayoutManager(getContext())
         {
             @Override
@@ -77,22 +79,5 @@ public class About extends Fragment
         rv_j_about_partyLicenses.setLayoutManager(layoutManager);
         rv_j_about_partyLicenses.setAdapter(adapter);
 
-        return view;
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(AboutViewModel.class);
-
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
 }

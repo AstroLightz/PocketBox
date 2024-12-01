@@ -1,18 +1,15 @@
 package com.astrolightz.pocketbox.ui.calcTip;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.astrolightz.pocketbox.DecimalInputFilter;
 import com.astrolightz.pocketbox.R;
@@ -30,8 +27,6 @@ public class CalculateTip extends Fragment
     MaterialAutoCompleteTextView et_j_calcTip_total;
     MaterialButton btn_j_calcTip_calc;
     Slider sl_j_calcTip_tipPerc;
-
-    private CalculateTipViewModel mViewModel;
 
     public static CalculateTip newInstance() {
         return new CalculateTip();
@@ -61,27 +56,12 @@ public class CalculateTip extends Fragment
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(CalculateTipViewModel.class);
-
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
     @SuppressLint("DefaultLocale")
     private void tipSlider()
     {
         sl_j_calcTip_tipPerc.addOnChangeListener((slider, value, fromUser) -> {
 
-            // Update tip display
+            // Update tip display when slider changes
             float sliderValue = sl_j_calcTip_tipPerc.getValue();
             tv_j_calcTip_tip.setText(String.format("Tip: %.0f%%", sliderValue));
 
@@ -109,6 +89,10 @@ public class CalculateTip extends Fragment
                 // Display tip amount
                 tv_j_calcTip_tipAmount.setText(sTipAmount);
 
+            }
+            else
+            {
+                Utilities.displayError(getView(), "Please fill in total.");
             }
 
         });

@@ -1,17 +1,14 @@
 package com.astrolightz.pocketbox.ui.calcDate;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.astrolightz.pocketbox.R;
 import com.astrolightz.pocketbox.Utilities;
@@ -30,8 +27,6 @@ public class CalculateDate extends Fragment
     MaterialTextView tv_j_calcDate_daysApart;
     MaterialButton btn_j_calcDate_calc;
 
-    private CalculateDateViewModel mViewModel;
-
     public static CalculateDate newInstance() {
         return new CalculateDate();
     }
@@ -47,13 +42,6 @@ public class CalculateDate extends Fragment
         tv_j_calcDate_daysApart = view.findViewById(R.id.tv_v_calcDate_daysApart);
         btn_j_calcDate_calc = view.findViewById(R.id.btn_v_calcDate_calc);
 
-        // Setup Date TVs
-        tv_j_calcDate_date1.setOnClickListener(datePickerListener());
-        tv_j_calcDate_date2.setOnClickListener(datePickerListener());
-
-        // Setup Calculate Button
-        calcButton();
-
         return view;
     }
 
@@ -61,15 +49,13 @@ public class CalculateDate extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(CalculateDateViewModel.class);
+        // Setup Date TVs
+        tv_j_calcDate_date1.setOnClickListener(datePickerListener());
+        tv_j_calcDate_date2.setOnClickListener(datePickerListener());
 
+        // Setup Calculate Button
+        calcButton();
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     // Button
@@ -85,20 +71,13 @@ public class CalculateDate extends Fragment
             // Check if dates are set
             if (date1.isEmpty() || date2.isEmpty())
             {
-                if (date1.isEmpty())
-                {
-                    tv_j_calcDate_date1.setError("Please select a date");
-                }
-                if (date2.isEmpty())
-                {
-                    tv_j_calcDate_date2.setError("Please select a date");
-                }
+                Utilities.displayError(getView(), "Please select both dates");
             }
 
             else
             {
                 // Calculate days apart
-                long daysApart = Math.abs(Utilities.calcualteDaysApart(date1, date2, ""));
+                long daysApart = Math.abs(Utilities.calculateDaysApart(date1, date2, ""));
 
                 // Display
                 String day = daysApart == 1 ? "Day" : "Days";
@@ -129,8 +108,8 @@ public class CalculateDate extends Fragment
             // Set Date TV
             datePicker.addOnPositiveButtonClickListener(s -> {
 
-                // Get date name (Ex. January 1, 1970)
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+                // Get date name
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Utilities.DEFAULT_DATE_FORMAT);
                 String date = LocalDate.ofEpochDay(s / (24 * 60 * 60 * 1000)).format(formatter);
 
                 // Set date to TV

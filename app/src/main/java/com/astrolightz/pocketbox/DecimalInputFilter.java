@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Input filter to constrain input to a decimal number with a specified number of digits before and after the decimal point.
+ */
 public class DecimalInputFilter implements InputFilter
 {
     private int digitsBeforeZero;
@@ -30,11 +33,12 @@ public class DecimalInputFilter implements InputFilter
     }
 
     @Override
-    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend)
+    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dStart, int dEnd)
     {
+        // Get the new value
         String replacement = source.subSequence(start, end).toString();
-        String newVal = dest.subSequence(0, dstart).toString() + replacement +
-                dest.subSequence(dend, dest.length()).toString();
+        String newVal = dest.subSequence(0, dStart).toString() + replacement +
+                dest.subSequence(dEnd, dest.length()).toString();
 
         // Check if the new value is valid
         Matcher matcher = pattern.matcher(newVal);
@@ -46,7 +50,7 @@ public class DecimalInputFilter implements InputFilter
         // Check if source is empty
         if (TextUtils.isEmpty(source))
         {
-            return dest.subSequence(dstart, dend);
+            return dest.subSequence(dStart, dEnd);
         }
         else
         {

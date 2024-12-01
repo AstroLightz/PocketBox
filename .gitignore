@@ -33,3 +33,7 @@ google-services.json
 *.hprof
 /app/src/androidTest/java/com/astrolightz/pocketbox/ExampleInstrumentedTest.java
 /app/src/test/java/com/astrolightz/pocketbox/ExampleUnitTest.java
+
+# Reproducable files
+/app/release/baselineProfiles
+/app/release/output-metadata.json

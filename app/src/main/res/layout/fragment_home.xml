@@ -46,7 +46,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_calcTotal"
-                app:icon="@drawable/baseline_credit_card_24"
+                app:icon="@drawable/ic_card"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />
@@ -59,7 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_calcTip"
-                app:icon="@drawable/baseline_attach_money_24"
+                app:icon="@drawable/ic_money"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />
@@ -72,7 +72,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_convTemp"
-                app:icon="@drawable/baseline_device_thermostat_24"
+                app:icon="@drawable/ic_thermometer"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />
@@ -85,7 +85,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_numFormat"
-                app:icon="@drawable/baseline_numbers_24"
+                app:icon="@drawable/ic_number"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />
@@ -98,7 +98,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_daysApart"
-                app:icon="@drawable/baseline_calendar_month_24"
+                app:icon="@drawable/ic_calendar"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />
@@ -111,7 +111,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/title_percChange"
-                app:icon="@drawable/baseline_percent_24"
+                app:icon="@drawable/ic_percent"
                 app:iconGravity="start"
                 app:iconSize="26dp"
                 android:textAppearance="@style/Button" />

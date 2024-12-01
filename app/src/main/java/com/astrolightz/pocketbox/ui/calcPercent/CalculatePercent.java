@@ -1,17 +1,14 @@
 package com.astrolightz.pocketbox.ui.calcPercent;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.astrolightz.pocketbox.R;
 import com.astrolightz.pocketbox.Utilities;
@@ -26,8 +23,6 @@ public class CalculatePercent extends Fragment
     MaterialAutoCompleteTextView et_j_calcPerc_num2;
     MaterialButton btn_j_calcPerc_calc;
     MaterialTextView tv_j_calcPerc_percent;
-
-    private CalculatePercentViewModel mViewModel;
 
     public static CalculatePercent newInstance() {
         return new CalculatePercent();
@@ -44,9 +39,6 @@ public class CalculatePercent extends Fragment
         btn_j_calcPerc_calc = view.findViewById(R.id.btn_v_calcPerc_calc);
         tv_j_calcPerc_percent = view.findViewById(R.id.tv_v_calcPerc_percent);
 
-        // Setup Calculate Button
-        calcButton();
-
         return view;
     }
 
@@ -54,15 +46,9 @@ public class CalculatePercent extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Setup ViewModel
-        mViewModel = new ViewModelProvider(this).get(CalculatePercentViewModel.class);
+        // Setup Calculate Button
+        calcButton();
 
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 
     @SuppressLint("DefaultLocale")
@@ -81,7 +67,7 @@ public class CalculatePercent extends Fragment
                 double num1 = Double.parseDouble(sNum1);
                 double num2 = Double.parseDouble(sNum2);
 
-                // Formula: ( ( num2 - num1 ) / num1 ) * 100
+                // Relative Percentage Change Formula: ( ( num2 - num1 ) / num1 ) * 100
                 double percent = ((num2 - num1) / num1) * 100;
 
                 // Display Result
@@ -93,6 +79,10 @@ public class CalculatePercent extends Fragment
                 {
                     tv_j_calcPerc_percent.setText(String.format("-%.02f%%", Math.abs(percent)));
                 }
+            }
+            else
+            {
+                Utilities.displayError(getView(), "Please fill in all fields.");
             }
 
         });

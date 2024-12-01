@@ -130,10 +130,18 @@ public class ConvertTemperature extends Fragment
     private void tempCheckSingle(String temp, String tempTo, String tempFrom, TextInputLayout til)
     {
         // Empty
-        if (temp.isEmpty())
+        if (tempTo.isEmpty() || tempFrom.isEmpty())
         {
-            til.setErrorEnabled(true);
-            til.setError(errorMsgs.get(0));
+            if (temp.isEmpty())
+            {
+                til.setErrorEnabled(true);
+                til.setError(errorMsgs.get(0));
+            }
+            else
+            {
+                til.setErrorEnabled(false);
+                til.setError(null);
+            }
         }
 
         // Same as the other spinner
@@ -144,8 +152,10 @@ public class ConvertTemperature extends Fragment
         }
         else
         {
-            til.setErrorEnabled(false);
-            til.setError(null);
+            til_j_convTemp_tempToLayout.setErrorEnabled(false);
+            til_j_convTemp_tempToLayout.setError(null);
+            til_j_convTemp_tempFromLayout.setErrorEnabled(false);
+            til_j_convTemp_tempFromLayout.setError(null);
         }
 
     }
@@ -161,17 +171,6 @@ public class ConvertTemperature extends Fragment
         // Empty
         if (tempTo.isEmpty() || tempFrom.isEmpty())
         {
-            if (tempTo.isEmpty())
-            {
-                til_j_convTemp_tempToLayout.setErrorEnabled(true);
-                til_j_convTemp_tempToLayout.setError(errorMsgs.get(0));
-            }
-            else
-            {
-                til_j_convTemp_tempToLayout.setErrorEnabled(false);
-                til_j_convTemp_tempToLayout.setError(null);
-            }
-
             if (tempFrom.isEmpty())
             {
                 til_j_convTemp_tempFromLayout.setErrorEnabled(true);
@@ -181,6 +180,17 @@ public class ConvertTemperature extends Fragment
             {
                 til_j_convTemp_tempFromLayout.setErrorEnabled(false);
                 til_j_convTemp_tempFromLayout.setError(null);
+            }
+
+            if (tempTo.isEmpty())
+            {
+                til_j_convTemp_tempToLayout.setErrorEnabled(true);
+                til_j_convTemp_tempToLayout.setError(errorMsgs.get(0));
+            }
+            else
+            {
+                til_j_convTemp_tempToLayout.setErrorEnabled(false);
+                til_j_convTemp_tempToLayout.setError(null);
             }
 
             return false;
@@ -204,7 +214,6 @@ public class ConvertTemperature extends Fragment
             til_j_convTemp_tempFromLayout.setError(null);
             return true;
         }
-
     }
 
     private void tempFromSpinner()

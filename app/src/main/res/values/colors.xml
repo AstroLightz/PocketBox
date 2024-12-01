@@ -42,10 +42,15 @@
     <color name="md_theme_primaryInverse">#9FC9FF</color>
     <color name="md_theme_seed">@color/md_theme_primary</color>
     <color name="md_theme_seedContainer">@color/md_theme_primaryContainer</color>
+    <color name="stroke">@color/material_on_surface_stroke</color>
+    <color name="card">@color/cardview_light_background</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="text">#FF000000</color>
     <color name="text_secondary">#FF323232</color>
+
+    <!-- Color changes based on release/debug -->
+    <color name="header_text">#000000</color>
 
 </resources>

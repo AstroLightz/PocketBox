@@ -29,8 +29,8 @@
             android:id="@+id/action_nav_home_to_nav_percChange"
             app:destination="@id/nav_percChange" />
         <action
-            android:id="@+id/action_nav_home_to_nav_settings"
-            app:destination="@id/nav_settings" />
+            android:id="@+id/action_nav_home_to_nav_about"
+            app:destination="@id/nav_about" />
     </fragment>
     <fragment
         android:id="@+id/nav_calcTotal"
@@ -87,11 +87,11 @@
             app:destination="@id/nav_home" />
     </fragment>
     <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.astrolightz.pocketbox.ui.settings.Settings"
-        android:label="@string/title_settings" >
+        android:id="@+id/nav_about"
+        android:name="com.astrolightz.pocketbox.ui.about.About"
+        android:label="@string/title_about" >
         <action
-            android:id="@+id/action_nav_settings_to_nav_home"
+            android:id="@+id/action_nav_about_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
 </navigation>

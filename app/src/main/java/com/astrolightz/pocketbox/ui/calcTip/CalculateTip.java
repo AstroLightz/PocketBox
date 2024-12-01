@@ -101,9 +101,13 @@ public class CalculateTip extends Fragment
 
                 // Calculate tip amount
                 double tipAmount = Utilities.roundTo(total * (tipPerc / 100), 2);
+                String sTipAmount = String.format("$%.2f", tipAmount);
+
+                // Adjust font size based on length
+                Utilities.adjustFontSize(sTipAmount, tv_j_calcTip_tipAmount);
 
                 // Display tip amount
-                tv_j_calcTip_tipAmount.setText(String.format("$%.2f", tipAmount));
+                tv_j_calcTip_tipAmount.setText(sTipAmount);
 
             }
 

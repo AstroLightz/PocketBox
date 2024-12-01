@@ -55,12 +55,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- TODO: Add app:menu, app:headerLayout, app:itemTextColor, and app:itemTextAppearance -->
+        <!-- TODO: Add app:itemTextColor, and app:itemTextAppearance -->
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/nv_v_navView"
             app:menu="@menu/navigation_menu"
+            app:headerLayout="@layout/drawer_header"
             android:layout_gravity="start">
 
             <LinearLayout
@@ -71,14 +72,14 @@
                 android:padding="16dp" />
 
             <TextView
+                android:id="@+id/tv_v_appVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/tv_v_appVersion"
                 android:gravity="bottom"
                 android:paddingStart="10sp"
                 android:paddingBottom="10sp"
                 android:text="v1.0.0"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp" />
 
         </com.google.android.material.navigation.NavigationView>

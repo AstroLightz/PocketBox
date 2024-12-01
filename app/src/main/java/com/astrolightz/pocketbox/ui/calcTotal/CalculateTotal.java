@@ -88,9 +88,13 @@ public class CalculateTotal extends Fragment
 
                 // Calculate total
                 double total = Utilities.roundTo(subtotal + (subtotal * (tax / 100)), 2);
+                String sTotal = String.format("$%.2f", total);
+
+                // Adjust font size based on length
+                Utilities.adjustFontSize(sTotal, tv_j_calcTotal_total);
 
                 // Display answer
-                tv_j_calcTotal_total.setText(String.format("$%.2f", total));
+                tv_j_calcTotal_total.setText(sTotal);
             }
 
         });

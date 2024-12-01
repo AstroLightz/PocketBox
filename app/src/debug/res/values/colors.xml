@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Color changes based on release/debug -->
+    <color name="header_text">#FFFFFF</color>
+
+</resources>

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 
 import com.astrolightz.pocketbox.R;
 import com.astrolightz.pocketbox.TempConversion;
+import com.astrolightz.pocketbox.Utilities;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -98,31 +99,74 @@ public class ConvertTemperature extends Fragment
             String tempFrom = sp_j_convTemp_tempFrom.getText().toString();
             String sTemp = et_j_convTemp_tempInput.getText().toString();
 
-            if (tempCheck(tempTo, tempFrom) && !sTemp.isEmpty())
+            if (tempCheckFull(tempTo, tempFrom) && !sTemp.isEmpty())
             {
                 // Perform conversion
                 double temp = Double.parseDouble(sTemp);
                 double result = TempConversion.performConversion(tempFrom, tempTo, temp);
+                String sResult = "";
 
                 // Display result
                 switch (tempTo)
                 {
                     case "Fahrenheit":
-                        tv_j_convTemp_temp.setText(String.format("%s°F", result));
+                        sResult = String.format("%s°F", result);
                         break;
                     case "Celsius":
-                        tv_j_convTemp_temp.setText(String.format("%s°C", result));
+                        sResult = String.format("%s°C", result);
                         break;
                     case "Kelvin":
-                        tv_j_convTemp_temp.setText(String.format("%sK", result));
+                        sResult = String.format("%sK", result);
                         break;
                 }
+
+                // Adjust font size based on length
+                Utilities.adjustFontSize(sResult, tv_j_convTemp_temp);
+
+                tv_j_convTemp_temp.setText(sResult);
             }
 
         });
     }
 
-    private boolean tempCheck(String tempTo, String tempFrom)
+    // Checks
+    /**
+     * Check if the value is empty or the selected item is the same as the other spinner
+     * @param temp    The value to check
+     * @param tempTo  The value of the To spinner
+     * @param tempFrom The value of the From spinner
+     * @param til     The TextInputLayout to display the error
+     */
+    private void tempCheckSingle(String temp, String tempTo, String tempFrom, TextInputLayout til)
+    {
+        // Check if the value is empty
+        if (temp.isEmpty())
+        {
+            til.setErrorEnabled(true);
+            til.setError(errorMsgs.get(0));
+        }
+
+        // Check if the selected item is the same as the other spinner
+        else if (tempTo.equals(tempFrom))
+        {
+            til.setErrorEnabled(true);
+            til.setError(errorMsgs.get(1));
+        }
+        else
+        {
+            til.setErrorEnabled(false);
+            til.setError(null);
+        }
+
+    }
+
+    /**
+     * Check if the values are empty or the selected item is the same as the other spinner
+     * @param tempTo   The value of the To spinner
+     * @param tempFrom The value of the From spinner
+     * @return         True if the values are valid
+     */
+    private boolean tempCheckFull(String tempTo, String tempFrom)
     {
         // Check if the values are empty
         if (tempTo.isEmpty() || tempFrom.isEmpty())
@@ -181,7 +225,7 @@ public class ConvertTemperature extends Fragment
             String tempFrom = sp_j_convTemp_tempFrom.getText().toString();
 
             // Check if the selected item is the same as the other spinner
-            tempCheck(tempTo, tempFrom);
+            tempCheckSingle(tempFrom, tempTo, tempFrom, til_j_convTemp_tempFromLayout);
 
             // Set the ET icon based on selected temp
             switch (tempFrom)
@@ -211,7 +255,7 @@ public class ConvertTemperature extends Fragment
             String tempFrom = sp_j_convTemp_tempFrom.getText().toString();
 
             // Check if the selected item is the same as the other spinner
-            tempCheck(tempTo, tempFrom);
+            tempCheckSingle(tempTo, tempTo, tempFrom, til_j_convTemp_tempToLayout);
 
         });
     }
